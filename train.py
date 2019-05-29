@@ -2,6 +2,8 @@ import tensorflow as tf
 from tensorflow import keras
 import pandas as pd
 from sklearn.model_selection import train_test_split
+import argparse
+import logging
 
 IMAGE_WIDTH = 96
 IMAGE_HEIGHT = 96
@@ -21,12 +23,12 @@ NUM_EPOCHS = 30
 VAL_STEPS = 10
 
 
-def read_csv(csv_location):
+def read_csv(csv_location, file_prefix=FILE_DIRECTORY, input_col=ID_COLUMN, target=LABEL_COLUMN):
     train_csv = pd.read_csv(csv_location)
-    filenames = [FILE_DIRECTORY + fname for fname in train_csv[ID_COLUMN].tolist()]
-    labels = train_csv[LABEL_COLUMN].tolist()
+    input = [file_prefix + fname for fname in train_csv[input_col].tolist()]
+    labels = train_csv[target].tolist()
 
-    return filenames, labels
+    return input, labels
 
 
 def build_dataset(filenames, labels):
@@ -43,7 +45,7 @@ def parse_filename(filename, label=None, img_width = IMAGE_WIDTH, img_height = I
     return img_resized, label
 
 
-def build_model():
+def build_model(learning_rate = LEARNING_RATE):
     base_model = keras.applications.MobileNetV2(input_shape=(IMAGE_WIDTH, IMAGE_HEIGHT, 3), include_top=False, weights='imagenet')
     base_model.trainable = False
 
@@ -55,7 +57,7 @@ def build_model():
         maxpool_layer,
         prediction_layer
     ])
-    learning_rate = LEARNING_RATE
+    learning_rate = learning_rate
 
     model.compile(optimizer=keras.optimizers.Adam(lr=learning_rate), 
                 loss='binary_crossentropy',
@@ -72,15 +74,35 @@ def train_model(model, train_data, num_train, val_data, num_epochs = NUM_EPOCHS,
 
 
 def main():
-    filenames, labels = read_csv(CSV_LOCATION)
-    train_filenames, val_filenames, train_labels, val_labels = train_test_split(filenames, labels, train_size=TRAIN_SIZE, random_state=42)
+    parser = argparse.ArgumentParser(description="Image Trainer")
+    parser.add_argument('--epochs', type=str, help='Number of epochs to train')
+    parser.add_argument('--validations', type=str, help='Number of validation stepts')
+    parser.add_argument('--workers' , type=str, help='Number of workers to use for training')
+    parser.add_argument('--trainset', type=str, help='Path of training set')
+    parser.add_argument('--input', type=str, help='Path of csv with labels for each file of training set')
+    parser.add_argument('--filenames', type=str, help='Input column of csv')
+    parser.add_argument('--target', type=str, help='Target column name of csv')
+    parser.add_argument('--train_size', type=float, help='Size of training set')
+    parser.add_argument('--learn_rate', type=float, help='Learning rate for model training')
+    parser.add_argument('--output', type=str, help='path of calculated model')
+    args = parser.parse_args()
 
+    logging.getLogger().setLevel(logging.INFO)
+
+    logging.info('Reading CSV..')
+    filenames, labels = read_csv(csv_location=args.input, file_prefix=args.trainset, input_col=args.filenames, target=args.target)
+    train_filenames, val_filenames, train_labels, val_labels = train_test_split(filenames, labels, train_size=args.train_size, random_state=42)
+
+    logging.info('Building Dataset...')
     train_data = build_dataset(train_filenames, train_labels)
     val_data = build_dataset(val_filenames, val_labels)
 
-    model = build_model()
-    history = train_model(model, train_data, len(train_filenames), val_data)
-    model.save('model/weights_epoch_30.h5')
+    logging.info('Building model...')
+    model = build_model(args.learn_rate)
+    logging.info('Training model...')
+    history = train_model(model, train_data, len(train_filenames), val_data, num_epochs=args.epochs, val_steps=args.validation)
+    logging.info('Saving model...')
+    model.save(args.output)
 
     acc = history.history['accuracy']
     val_acc = history.history['val_accuracy']
@@ -88,7 +110,7 @@ def main():
     loss = history.history['loss']
     val_loss = history.history['val_loss']
 
-    print(acc, val_acc, loss, val_loss)
+    logging.info(acc, val_acc, loss, val_loss)
 
 
 if __name__ == '__main__':

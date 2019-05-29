@@ -1,6 +1,8 @@
 import tensorflow as tf
 from tensorflow import keras
 import pandas as pd
+import argparse
+import logging
 
 IMAGE_WIDTH = 96
 IMAGE_HEIGHT = 96
@@ -14,10 +16,10 @@ ID_COLUMN = 'id'
 LABEL_COLUMN = 'has_scratch'
 
 
-def read_csv(csv_location):
+def read_csv(csv_location, directory = FILE_DIRECTORY, input_col = ID_COLUMN, target=LABEL_COLUMN):
     train_csv = pd.read_csv(csv_location)
-    filenames = [FILE_DIRECTORY + fname for fname in train_csv[ID_COLUMN].tolist()]
-    labels = train_csv[LABEL_COLUMN].tolist()
+    filenames = [directory + fname for fname in train_csv[input_col].tolist()]
+    labels = train_csv[target].tolist()
 
     return filenames, labels
 
@@ -37,15 +39,33 @@ def parse_filename(filename, label=None, img_width = IMAGE_WIDTH, img_height = I
 
 
 def main():
-    model = keras.models.load_model(MODEL_LOCATION)
-    model.summary()
+    parser = argparse.ArgumentParser(description="Image Trainer")
+    parser.add_argument('--workers' , type=str, help='Number of workers to use for training')
+    parser.add_argument('--testset', type=str, help='Path of training set')
+    parser.add_argument('--input', type=str, help='Path of csv with labels for each file of training set')
+    parser.add_argument('--filenames', type=str, help='Input column of csv')
+    parser.add_argument('--target', type=str, help='Target column name of csv')
+    parser.add_argument('--model', type=str, help='Path of given model')
+    parser.add_argument('--output', type=str, help='path of results')
+    args = parser.parse_args()
 
-    filenames, labels = read_csv(CSV_LOCATION)
+    logging.getLogger().setLevel(logging.INFO)
 
+    logging.info("Loading model...")
+    model = keras.models.load_model(args.model)
+    #model.summary()
+
+    logging.info("Reading csv...")
+    filenames, labels = read_csv(csv_location=args.input, directory=args.testset, input_col=args.filenames, target=args.target)
+
+    logging.info("Loading dataset...")
     data = build_dataset(filenames, labels)    
     loss, acc = model.evaluate(data)
 
-    print(100*acc)
+    logging.info("Writing results to csv")
+    output_file = open(args.output, 'w')
+    output_file.write("Loss: {}, Acc: {}".format(loss, acc))
+    output_file.close()
 
 if __name__ == '__main__':
     main()

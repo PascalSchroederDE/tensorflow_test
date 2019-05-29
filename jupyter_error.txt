@@ -1,0 +1,140 @@
++ [[  --ip="0.0.0.0" --port=8888 --allow-root != *\-\-\i\p\=* ]]
++ '[' '!' -z '' ']'
++ '[' '!' -z '' ']'
++ '[' '!' -z '' ']'
++ '[' '!' -z '' ']'
++ '[' '!' -z '' ']'
++ '[' '!' -z '' ']'
++ '[' '!' -z '' ']'
++ . /usr/local/bin/pvc-check.sh
+++ SRC_CONF=/tmp/jupyter_notebook_config.py
+++ WORK_DIR=/home/jovyan/work
+++ CONF_DIR=/home/jovyan/.jupyter
+++ echo 'checking if /home/jovyan volume needs init...'
+checking if /home/jovyan volume needs init...
++++ ls --ignore=lost+found -A /home/jovyan
+++ '[' '.config
+.ipynb_checkpoints
+.ipython
+.../home/jovyan already has content...
+.jupyter
+.keras
+.local
+.nv
+Untitled.ipynb
+work' ']'
+++ echo '.../home/jovyan already has content...'
+++ echo ...done
+...done
++ '[' -z '' ']'
++ set +e
++ source activate py2
+++ _CONDA_ROOT=/opt/conda
+++ . /opt/conda/etc/profile.d/conda.sh
++++ _CONDA_EXE=/opt/conda/bin/conda
++++ _CONDA_ROOT=/opt/conda
++++ _conda_set_vars
++++ '[' -n x ']'
++++ _CONDA_SHELL_FLAVOR=bash
++++ '[' -z x ']'
++++ '[' -z '' ']'
++++ PS1=
++++ '[' -z '' ']'
++++ export CONDA_SHLVL=0
++++ CONDA_SHLVL=0
+++ _conda_activate py2
+++ '[' -n '' ']'
+++ local ask_conda
++++ PS1=
++++ /opt/conda/bin/conda shell.posix activate py2
+++ ask_conda='PS1='\''(py2) '\''
+\export CONDA_DEFAULT_ENV='\''py2'\''
+\export CONDA_EXE='\''/opt/conda/bin/conda'\''
+\export CONDA_PREFIX='\''/opt/conda/envs/py2'\''
+\export CONDA_PROMPT_MODIFIER='\''(py2) '\''
+\export CONDA_PYTHON_EXE='\''/opt/conda/bin/python'\''
+\export CONDA_SHLVL='\''1'\''
+\export PATH='\''/opt/conda/envs/py2/bin:/opt/conda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'\'''
+++ eval 'PS1='\''(py2) '\''
+\export CONDA_DEFAULT_ENV='\''py2'\''
+\export CONDA_EXE='\''/opt/conda/bin/conda'\''
+\export CONDA_PREFIX='\''/opt/conda/envs/py2'\''
+\export CONDA_PROMPT_MODIFIER='\''(py2) '\''
+\export CONDA_PYTHON_EXE='\''/opt/conda/bin/python'\''
+\export CONDA_SHLVL='\''1'\''
+\export PATH='\''/opt/conda/envs/py2/bin:/opt/conda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'\'''
++++ PS1='(py2) '
++++ export CONDA_DEFAULT_ENV=py2
++++ CONDA_DEFAULT_ENV=py2
++++ export CONDA_EXE=/opt/conda/bin/conda
++++ CONDA_EXE=/opt/conda/bin/conda
++++ export CONDA_PREFIX=/opt/conda/envs/py2
++++ CONDA_PREFIX=/opt/conda/envs/py2
++++ export 'CONDA_PROMPT_MODIFIER=(py2) '
++++ CONDA_PROMPT_MODIFIER='(py2) '
++++ export CONDA_PYTHON_EXE=/opt/conda/bin/python
++++ CONDA_PYTHON_EXE=/opt/conda/bin/python
++++ export CONDA_SHLVL=1
++++ CONDA_SHLVL=1
++++ export PATH=/opt/conda/envs/py2/bin:/opt/conda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
++++ PATH=/opt/conda/envs/py2/bin:/opt/conda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+++ _conda_hashr
+++ case "$_CONDA_SHELL_FLAVOR" in
+++ hash -r
++ jupyter nbextension install --py --user --symlink tensorflow_model_analysis
+/opt/conda/envs/py2/lib/python2.7/site-packages/scipy/spatial/__init__.py:96: ImportWarning: Not importing directory '/opt/conda/envs/py2/lib/python2.7/site-packages/scipy/spatial/qhull': missing __init__.py
+  from .qhull import *
+/opt/conda/envs/py2/lib/python2.7/site-packages/scipy/optimize/_minimize.py:37: ImportWarning: Not importing directory '/opt/conda/envs/py2/lib/python2.7/site-packages/scipy/optimize/lbfgsb': missing __init__.py
+  from .lbfgsb import _minimize_lbfgsb
+Installing /opt/conda/envs/py2/lib/python2.7/site-packages/tensorflow_model_analysis/static -> tfma_widget_js
+Symlinking: /home/jovyan/.local/share/jupyter/nbextensions/tfma_widget_js -> /opt/conda/envs/py2/lib/python2.7/site-packages/tensorflow_model_analysis/static
+Traceback (most recent call last):
+  File "/opt/conda/envs/py2/bin/jupyter-nbextension", line 11, in <module>
+    sys.exit(main())
+  File "/opt/conda/envs/py2/lib/python2.7/site-packages/jupyter_core/application.py", line 266, in launch_instance
+    return super(JupyterApp, cls).launch_instance(argv=argv, **kwargs)
+  File "/opt/conda/envs/py2/lib/python2.7/site-packages/traitlets/config/application.py", line 658, in launch_instance
+    app.start()
+  File "/opt/conda/envs/py2/lib/python2.7/site-packages/notebook/nbextensions.py", line 988, in start
+    super(NBExtensionApp, self).start()
+  File "/opt/conda/envs/py2/lib/python2.7/site-packages/jupyter_core/application.py", line 255, in start
+    self.subapp.start()
+  File "/opt/conda/envs/py2/lib/python2.7/site-packages/notebook/nbextensions.py", line 716, in start
+    self.install_extensions()
+  File "/opt/conda/envs/py2/lib/python2.7/site-packages/notebook/nbextensions.py", line 695, in install_extensions
+    **kwargs
+  File "/opt/conda/envs/py2/lib/python2.7/site-packages/notebook/nbextensions.py", line 225, in install_nbextension_python
+    destination=dest, logger=logger
+  File "/opt/conda/envs/py2/lib/python2.7/site-packages/notebook/nbextensions.py", line 184, in install_nbextension
+    os.symlink(path, full_dest)
+OSError: [Errno 17] File exists
++ jupyter nbextension enable --py --user tensorflow_model_analysis
+/opt/conda/envs/py2/lib/python2.7/site-packages/scipy/spatial/__init__.py:96: ImportWarning: Not importing directory '/opt/conda/envs/py2/lib/python2.7/site-packages/scipy/spatial/qhull': missing __init__.py
+  from .qhull import *
+/opt/conda/envs/py2/lib/python2.7/site-packages/scipy/optimize/_minimize.py:37: ImportWarning: Not importing directory '/opt/conda/envs/py2/lib/python2.7/site-packages/scipy/optimize/lbfgsb': missing __init__.py
+  from .lbfgsb import _minimize_lbfgsb
+Enabling notebook extension tfma_widget_js/extension...
+      - Validating: [32mOK[0m
++ set -e
++ . /usr/local/bin/start.sh jupyterhub-singleuser '--ip="0.0.0.0"' --port=8888 --allow-root
+++ set -e
++++ id -u
+++ '[' 1000 == 0 ']'
+++ [[ ! -z 1000 ]]
++++ id -u
+++ [[ 1000 != \1\0\0\0 ]]
+Execute the command
+++ [[ ! -z '' ]]
+++ [[ '' == \1 ]]
+++ [[ '' == \y\e\s ]]
+++ echo 'Execute the command'
+++ exec jupyterhub-singleuser '--ip="0.0.0.0"' --port=8888 --allow-root
+[W 2019-05-23 16:20:37.601 SingleUserNotebookApp configurable:168] Config option `open_browser` not recognized by `SingleUserNotebookApp`.  Did you mean `browser`?
+[I 2019-05-23 16:20:37.777 SingleUserNotebookApp extension:168] JupyterLab extension loaded from /opt/conda/lib/python3.6/site-packages/jupyterlab
+[I 2019-05-23 16:20:37.777 SingleUserNotebookApp extension:169] JupyterLab application directory is /opt/conda/share/jupyter/lab
+[I 2019-05-23 16:20:37.778 SingleUserNotebookApp singleuser:406] Starting jupyterhub-singleuser server version 0.9.4
+[E 2019-05-23 16:20:57.800 SingleUserNotebookApp singleuser:389] Failed to connect to my Hub at http://jupyter-0:8081/hub/api (attempt 1/5). Is it running?
+    Traceback (most recent call last):
+      File "/opt/conda/lib/python3.6/site-packages/jupyterhub/singleuser.py", line 386, in check_hub_version
+        resp = await client.fetch(self.hub_api_url)
+    tornado.simple_httpclient.HTTPTimeoutError: Timeout while connecting
