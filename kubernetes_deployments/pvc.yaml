@@ -3,9 +3,9 @@ apiVersion: v1
 metadata:
   name: train-vol
 spec:
+  storageClassName: standard
   accessModes:
     - ReadWriteOnce
-  volumeMode: Filesystem  
   resources:
     requests:
       storage: 1Gi

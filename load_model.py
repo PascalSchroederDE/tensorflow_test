@@ -16,9 +16,9 @@ ID_COLUMN = 'id'
 LABEL_COLUMN = 'has_scratch'
 
 
-def read_csv(csv_location, directory = FILE_DIRECTORY, input_col = ID_COLUMN, target=LABEL_COLUMN):
-    train_csv = pd.read_csv(csv_location)
-    filenames = [directory + fname for fname in train_csv[input_col].tolist()]
+def read_csv(mount, csv_location, directory = FILE_DIRECTORY, input_col = ID_COLUMN, target=LABEL_COLUMN):
+    train_csv = pd.read_csv(mount + csv_location)
+    filenames = [mount + directory + "/" + fname for fname in train_csv[input_col].tolist()]
     labels = train_csv[target].tolist()
 
     return filenames, labels
@@ -40,7 +40,8 @@ def parse_filename(filename, label=None, img_width = IMAGE_WIDTH, img_height = I
 
 def main():
     parser = argparse.ArgumentParser(description="Image Trainer")
-    parser.add_argument('--workers' , type=str, help='Number of workers to use for training')
+    parser.add_argument('--workers' , type=int, help='Number of workers to use for training')
+    parser.add_argument('--pvc_path' , type=str, help='Mount path')
     parser.add_argument('--testset', type=str, help='Path of training set')
     parser.add_argument('--input', type=str, help='Path of csv with labels for each file of training set')
     parser.add_argument('--filenames', type=str, help='Input column of csv')
@@ -56,11 +57,11 @@ def main():
     #model.summary()
 
     logging.info("Reading csv...")
-    filenames, labels = read_csv(csv_location=args.input, directory=args.testset, input_col=args.filenames, target=args.target)
+    filenames, labels = read_csv(mount=args.pvc_path, csv_location=args.pvc_path + args.input, directory=args.testset, input_col=args.filenames, target=args.target)
 
     logging.info("Loading dataset...")
     data = build_dataset(filenames, labels)    
-    loss, acc = model.evaluate(data)
+    loss, acc = model.evaluate(data, steps=1)
 
     logging.info("Writing results to csv")
     output_file = open(args.output, 'w')

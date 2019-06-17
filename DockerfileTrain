@@ -1,8 +1,9 @@
-FROM tensorflow/tensorflow:latest-gpu
+FROM tensorflow/tensorflow:latest-gpu-py3   
 
 COPY ./train.py .
 Copy ./requirements.txt .
+Copy ./output.txt .
 
 RUN pip install -r requirements.txt
 
-ENTRYPOINT ["python", "/train.py"]
+ENTRYPOINT ["python3", "/train.py"]
