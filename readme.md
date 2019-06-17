@@ -57,7 +57,8 @@ and restart docker:
 
 5. Delete last line "search [...]ibm[...]" out of `run/systemd/resolve/resolv.conf` (for DNS resolution) 
 
-6.  ```  
+6.  
+```  
 iptables -P FORWARD ACCEPT 
 ```  
 
