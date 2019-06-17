@@ -57,7 +57,7 @@ and restart docker:
 
 5. Delete last line "search [...]ibm[...]" out of `run/systemd/resolve/resolv.conf` (for DNS resolution) 
 
-6.  
+6. Accept IP forwards
 ```  
 iptables -P FORWARD ACCEPT 
 ```  
@@ -92,7 +92,7 @@ rm -rf /var/lib/minikube/certs/
 
 ### Install kubeflow pipelines
 
-1.  
+1. Export pipeline version
 ```  
 export PIPELINE_VERSION=master 
 ```  
@@ -111,7 +111,7 @@ export PIPELINE_VERSION=master
 
 4. Check via `kubectl get pods -n kubeflow` until every pod is running
 
-5.  
+5. Forward kubeflow port
 ```  
 kubectl port-forward -n kubeflow svc/ml-pipeline-ui 8080:80 
 ```  
