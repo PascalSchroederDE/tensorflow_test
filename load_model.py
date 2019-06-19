@@ -57,7 +57,7 @@ def main():
     #model.summary()
 
     logging.info("Reading csv...")
-    filenames, labels = read_csv(mount=args.pvc_path, csv_location=args.pvc_path + args.input, directory=args.testset, input_col=args.filenames, target=args.target)
+    filenames, labels = read_csv(mount=args.pvc_path, csv_location=args.input, directory=args.testset, input_col=args.filenames, target=args.target)
 
     logging.info("Loading dataset...")
     data = build_dataset(filenames, labels)    
