@@ -9,8 +9,10 @@ Installation:
 [docs.nvidia.com/cuda/cuda-installation-guide-linux](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html)
 
 Important: Export paths
-```export LD_LIBRARY_PATH=/usr/local/cuda-10.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
-export PATH=/usr/local/cuda-10.0/bin:/usr/local/cuda-10.0/NsightCompute-2019.1${PATH:+:${PATH}}```
+```
+export LD_LIBRARY_PATH=/usr/local/cuda-10.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+export PATH=/usr/local/cuda-10.0/bin:/usr/local/cuda-10.0/NsightCompute-2019.1${PATH:+:${PATH}}
+```
 (alternatively persist exports in ~/.bashrc)
 
 2. Docker
@@ -39,27 +41,30 @@ and restart docker:
 
 ```curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 \
   && chmod +x minikube
-sudo cp minikube /usr/local/bin && rm minikube```
+sudo cp minikube /usr/local/bin && rm minikube
+```
 
 4. Delete last line "search aag-de.ibmmobiledemo.com" out of `run/systemd/resolve/resolv.conf` (for DNS resolution)
 
-5. ```iptables -P FORWARD ACCEPT```
+5. `iptables -P FORWARD ACCEPT`
 
 6. Start minikube without VM
 
-```minikube start --vm-driver=none --apiserver-ips=127.0.0.1 --apiserver-name localhost --cpus 4 --memory 4096 --disk-size=15g --extra-config=kubelet.resolv-conf=/run/systemd/resolve/resolv.conf```
+```minikube start --vm-driver=none --apiserver-ips=127.0.0.1 --apiserver-name localhost --cpus 4 --memory 4096 --disk-size=15g --extra-config=kubelet.resolv-conf=/run/systemd/resolve/resolv.conf
+```
 
 ## Install kubeflow pipelines
 
-1. ```export PIPELINE_VERSION=master```
+1. `export PIPELINE_VERSION=master`
 
 2. Install kubeflow pipelines:
 
-```kubectl apply -f https://raw.githubusercontent.com/kubeflow/pipelines/$PIPELINE_VERSION/manifests/namespaced-install.yaml```
+```kubectl apply -f https://raw.githubusercontent.com/kubeflow/pipelines/$PIPELINE_VERSION/manifests/namespaced-install.yaml
+```
 
 3. Check via `kubectl get pods -n kubeflow` until every pod is running
 
-4. ```kubectl port-forward -n kubeflow svc/ml-pipeline-ui 8080:80```
+4. `kubectl port-forward -n kubeflow svc/ml-pipeline-ui 8080:80`
 
 5. Access [localhost:8080](localhost:8080)
 
@@ -133,11 +138,13 @@ if __name__ == '__main__':
 
 1. Export pipeline version
 
-```export PIPELINE_VERSION=master```
+```export PIPELINE_VERSION=master
+```
 
 2. Delete existing Pipeline installation:
 
-```kubectl delete -f https://raw.githubusercontent.com/kubeflow/pipelines/$PIPELINE_VERSION/manifests/namespaced-install.yaml```
+```kubectl delete -f https://raw.githubusercontent.com/kubeflow/pipelines/$PIPELINE_VERSION/manifests/namespaced-install.yaml
+```
 
 3. Stop Minikube 
 
