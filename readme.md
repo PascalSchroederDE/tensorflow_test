@@ -29,17 +29,22 @@ export PATH=/usr/local/cuda-10.0/bin:/usr/local/cuda-10.0/NsightCompute-2019.1${
 
 Add following line as first entry of `/etc/docker/daemon.json`
 
-```"default-runtime": "nvidia",```
+```
+"default-runtime": "nvidia",
+```
 
 and restart docker:
 
-```service docker restart```
+```
+service docker restart
+```
 
 (before starting minikube)
 
 3. Download Minikube
 
-```curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 \
+```
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 \
   && chmod +x minikube
 sudo cp minikube /usr/local/bin && rm minikube
 ```
@@ -50,7 +55,8 @@ sudo cp minikube /usr/local/bin && rm minikube
 
 6. Start minikube without VM
 
-```minikube start --vm-driver=none --apiserver-ips=127.0.0.1 --apiserver-name localhost --cpus 4 --memory 4096 --disk-size=15g --extra-config=kubelet.resolv-conf=/run/systemd/resolve/resolv.conf
+```
+minikube start --vm-driver=none --apiserver-ips=127.0.0.1 --apiserver-name localhost --cpus 4 --memory 4096 --disk-size=15g --extra-config=kubelet.resolv-conf=/run/systemd/resolve/resolv.conf
 ```
 
 ## Install kubeflow pipelines
@@ -59,7 +65,8 @@ sudo cp minikube /usr/local/bin && rm minikube
 
 2. Install kubeflow pipelines:
 
-```kubectl apply -f https://raw.githubusercontent.com/kubeflow/pipelines/$PIPELINE_VERSION/manifests/namespaced-install.yaml
+```
+kubectl apply -f https://raw.githubusercontent.com/kubeflow/pipelines/$PIPELINE_VERSION/manifests/namespaced-install.yaml
 ```
 
 3. Check via `kubectl get pods -n kubeflow` until every pod is running
@@ -138,12 +145,14 @@ if __name__ == '__main__':
 
 1. Export pipeline version
 
-```export PIPELINE_VERSION=master
+```
+export PIPELINE_VERSION=master
 ```
 
 2. Delete existing Pipeline installation:
 
-```kubectl delete -f https://raw.githubusercontent.com/kubeflow/pipelines/$PIPELINE_VERSION/manifests/namespaced-install.yaml
+```
+kubectl delete -f https://raw.githubusercontent.com/kubeflow/pipelines/$PIPELINE_VERSION/manifests/namespaced-install.yaml
 ```
 
 3. Stop Minikube 
@@ -170,11 +179,15 @@ rm -rf ~/.kube/
 
 7. Start Minikube
 
-```minikube start --vm-driver=none --apiserver-ips=127.0.0.1 --apiserver-name localhost --cpus 4 --memory 4096 --disk-size=15g --extra-config=kubelet.resolv-conf=/run/systemd/resolve/resolv.conf```
+```
+minikube start --vm-driver=none --apiserver-ips=127.0.0.1 --apiserver-name localhost --cpus 4 --memory 4096 --disk-size=15g --extra-config=kubelet.resolv-conf=/run/systemd/resolve/resolv.conf
+```
 
 8. Install kubeflow pipelines:
 
-```kubectl apply -f https://raw.githubusercontent.com/kubeflow/pipelines/$PIPELINE_VERSION/manifests/namespaced-install.yaml```
+```
+kubectl apply -f https://raw.githubusercontent.com/kubeflow/pipelines/$PIPELINE_VERSION/manifests/namespaced-install.yaml
+```
 
 
 ## Troubleshooting
