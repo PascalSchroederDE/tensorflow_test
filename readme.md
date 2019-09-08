@@ -98,7 +98,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubeflow/pipelines/$PIPELINE_
 ## Use local data on Kubeflow
 
 1. Create a yaml file looking similar to this:
-
+```
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -110,6 +110,7 @@ spec:
   resources:
     requests:
       storage: 1Gi
+```
 
 2. Create pvc with yaml file (e.g. pvc.yaml)
 
